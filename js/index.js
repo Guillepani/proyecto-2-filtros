@@ -1,4 +1,4 @@
-// Array de productos - iPhones con TODAS las combinaciones
+// Array de productos
 const products = generateiPhoneProducts();
 
 function generateiPhoneProducts() {
@@ -39,7 +39,7 @@ function generateiPhoneProducts() {
     const productsArray = [];
     let id = 1;
 
-    // Generar TODAS las combinaciones para cada modelo
+    // Generar combinaciones de productos
     models.forEach(model => {
         colors.forEach(color => {
             storages.forEach(storage => {
@@ -48,7 +48,7 @@ function generateiPhoneProducts() {
                 if (storage === 256) price += 100;
                 if (storage === 512) price += 200;
                 
-                // ↓↓↓↓ LÍNEA MÁGICA - GENERA NOMBRE AUTOMÁTICO ↓↓↓↓
+                // Generar nombre automáticamente
                 const imageName = `iphone-${model.name.toLowerCase().replace(/ /g, '-').replace('iphone-', '')}-${color}.jpg`;
                 
                 productsArray.push({
@@ -58,7 +58,7 @@ function generateiPhoneProducts() {
                     color: color,
                     storage: storage,
                     price: price,
-                    // ↓↓↓↓ RUTA COMPLETA DE LA IMAGEN ↓↓↓↓
+                    // Ruta de la imagen
                     image: `images/${imageName}`
                 });
             });
@@ -92,10 +92,10 @@ function init() {
     productsContainer = document.getElementById('productsContainer');
     filterToggle = document.getElementById('filterToggle');
     
-    // Crear y configurar el modal con JavaScript
+    // Crear y configurar el modal con javascript
     createModal();
     
-    // Obtener referencias a los elementos del modal recién creado
+    // Obtener referencias a los elementos del modal
     filterModal = document.getElementById('filterModal');
     closeModal = document.querySelector('.close');
     filterForm = document.getElementById('filterForm');
@@ -334,9 +334,7 @@ function getRandomProducts(count) {
 
 // Renderizar lista de productos
 function renderProducts(productsArray) {
-    // Limpiar contenedor
     productsContainer.innerHTML = '';
-    
     // Crear y añadir cada producto
     productsArray.forEach(product => {
         const productElement = createProductElement(product);
@@ -366,5 +364,5 @@ function createProductElement(product) {
     return productDiv;
 }
 
-// Inicializar la aplicación cuando el DOM esté listo
+// Iniciar la aplicación cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', init);

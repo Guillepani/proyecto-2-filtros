@@ -16,7 +16,7 @@ Todo el renderizado se realiza dinámicamente desde JavaScript.
 
 # Conceptos trabajados
 - Array de objetos
-- Métodos de arrays (`filter`, `map`, `forEach`)
+- Métodos de arrays (filter, map, forEach)
 - Manipulación del DOM
 - Gestión de eventos
 - Estructuración básica de un proyecto frontend

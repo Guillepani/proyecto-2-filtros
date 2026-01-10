@@ -1,0 +1,31 @@
+{
+  "name": "Bootcamp Environment",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ritwickdey.LiveServer",
+        "usernamehw.errorlens",
+        "formulahendry.auto-rename-tag",
+        "ecmel.vscode-html-css",
+        "eamodio.gitlens",
+        "christian-kohler.path-intellisense",
+        "yzhang.markdown-all-in-one",
+        "dracula-theme.theme-dracula",
+        "PKief.material-icon-theme"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "workbench.colorTheme": "Default Dark+",
+        "workbench.iconTheme": "material-icon-theme"
+      }
+    }
+  }
+}

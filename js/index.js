@@ -1,6 +1,5 @@
 // PRODUCTOS
 
-// Array de productos
 const products = generateiPhoneProducts();
 
 function generateiPhoneProducts() {
@@ -82,10 +81,10 @@ let headerRoot;
 let mainRoot;
 let footerRoot;
 
-let productsContainer; // sección grid
-let filterModal; // overlay modal
-let filterToggleBtn; // botón header
-let closeModalBtn; // X
+let productsContainer;
+let filterModal;
+let filterToggleBtn;
+let closeModalBtn;
 
 let filterForm;
 let clearFiltersBtn;
@@ -94,7 +93,7 @@ let priceValueSpan;
 
 let lastFocusedElement = null;
 
-// INIT
+/* INIT */
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
@@ -102,24 +101,17 @@ function init() {
   mainRoot = document.getElementById("siteMain");
   footerRoot = document.getElementById("siteFooter");
 
-  // Inyectar estructura completa
   buildHeader();
   buildMain();
   buildFooter();
-  buildModal(); // modal se crea con DOM
+  buildModal();
 
-  // Render inicial
   renderProducts(products);
-
-  // Listeners
   setupEventListeners();
-
-  // Sincronizar valor inicial
   updatePriceValue();
 }
 
-// HELPERS DOM
-
+/* HELPERS DOM */
 function createEl(tag, options = {}) {
   const node = document.createElement(tag);
 
@@ -128,7 +120,9 @@ function createEl(tag, options = {}) {
   if (options.text !== undefined) node.textContent = options.text;
 
   if (options.attrs) {
-    Object.entries(options.attrs).forEach(([k, v]) => node.setAttribute(k, v));
+    Object.entries(options.attrs).forEach(([k, v]) =>
+      node.setAttribute(k, v)
+    );
   }
 
   return node;
@@ -143,22 +137,19 @@ function uniqueValues(array, key) {
   return Array.from(set);
 }
 
-// BUILD HEADER / MAIN / FOOTER (todo por DOM)
-
+/* BUILD HEADER */
 function buildHeader() {
-  const header = createEl("header", { className: "header" });
+  clearNode(headerRoot);
+  headerRoot.className = "header";
+
   const container = createEl("div", { className: "container" });
   const headerContent = createEl("div", { className: "header-content" });
 
-  // Logo
   const h1 = createEl("h1", { className: "logo" });
-
   const icon = createEl("span", { className: "logo-icon", text: "📱" });
   const brandText = createEl("span", { text: "iPhone Store" });
-
   h1.append(icon, brandText);
 
-  // Botón filtrar
   filterToggleBtn = createEl("button", {
     className: "btn-filter",
     id: "filterToggle",
@@ -171,13 +162,11 @@ function buildHeader() {
 
   const btnSpan = createEl("span", { text: "Filtrar" });
 
-  // Icono SVG
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("width", "16");
   svg.setAttribute("height", "16");
   svg.setAttribute("viewBox", "0 0 24 24");
   svg.setAttribute("fill", "none");
-  svg.setAttribute("aria-hidden", "true");
 
   const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
   path.setAttribute("d", "M4 6H20M7 12H17M9 18H15");
@@ -189,18 +178,16 @@ function buildHeader() {
 
   headerContent.append(h1, filterToggleBtn);
   container.appendChild(headerContent);
-  header.appendChild(container);
-
-  // Inyectar en el headerRoot escueto
-  clearNode(headerRoot);
-  headerRoot.appendChild(header);
+  headerRoot.appendChild(container);
 }
 
+/* BUILD MAIN */
 function buildMain() {
-  const main = createEl("main", { className: "main" });
+  clearNode(mainRoot);
+  mainRoot.className = "main";
+
   const container = createEl("div", { className: "container" });
 
-  // Sección productos
   productsContainer = createEl("section", {
     className: "products-grid",
     id: "productsContainer",
@@ -208,73 +195,68 @@ function buildMain() {
   });
 
   container.appendChild(productsContainer);
-  main.appendChild(container);
-
-  clearNode(mainRoot);
-  mainRoot.appendChild(main);
+  mainRoot.appendChild(container);
 }
 
+/* BUILD FOOTER */
 function buildFooter() {
-  const footer = createEl("footer", { className: "footer" });
-  const container = createEl("div", { className: "container" });
+  clearNode(footerRoot);
+  footerRoot.className = "footer";
 
+  const container = createEl("div", { className: "container" });
   const footerContent = createEl("div", { className: "footer-content" });
 
-  // Sección 1
-  const sec1 = createEl("div", { className: "footer-section" });
+  const sec1 = createEl("section", { className: "footer-section" });
   sec1.append(
     createEl("h3", { text: "iPhone Store Valencia" }),
     createEl("p", { text: "Distribuidor autorizado de productos Apple" }),
     createEl("p", { text: "Venta de iPhones nuevos y certificados" })
   );
 
-  // Sección 2
-  const sec2 = createEl("div", { className: "footer-section" });
+  const sec2 = createEl("address", { className: "footer-section" });
   sec2.append(
     createEl("h4", { text: "Contacto" }),
-    createEl("p", { text: "📞 +34 901 01 01 01" }),
-    createEl("p", { text: "✉️ info@iphonestorevalencia.es" }),
-    createEl("p", { text: "📍 Valencia" })
+    createEl("p", { text: "+34 901 01 01 01" }),
+    createEl("p", { text: "info@iphonestorevalencia.es" }),
+    createEl("p", { text: "Valencia" })
   );
 
-  // Sección 3
-  const sec3 = createEl("div", { className: "footer-section" });
-  sec3.append(
-    createEl("h4", { text: "Servicios" }),
-    createEl("p", { text: "✅ Garantía 2 años" }),
-    createEl("p", { text: "✅ Envío gratis en 24h" }),
-    createEl("p", { text: "✅ Financiación disponible" })
+  const sec3 = createEl("section", { className: "footer-section" });
+  const servicesTitle = createEl("h4", { text: "Servicios" });
+  const servicesList = createEl("ul");
+  servicesList.append(
+    createEl("li", { text: "Garantía 2 años" }),
+    createEl("li", { text: "Envío gratis en 24h" }),
+    createEl("li", { text: "Financiación disponible" })
   );
+  sec3.append(servicesTitle, servicesList);
 
-  // Sección 4
-  const sec4 = createEl("div", { className: "footer-section" });
-  sec4.append(
-    createEl("h4", { text: "Legal" }),
-    createEl("p", { text: "🔒 Política de privacidad" }),
-    createEl("p", { text: "📄 Términos y condiciones" }),
-    createEl("p", { text: "🔄 Política de devoluciones" })
+  const sec4 = createEl("section", { className: "footer-section" });
+  const legalTitle = createEl("h4", { text: "Legal" });
+  const legalList = createEl("ul");
+  legalList.append(
+    createEl("li", { text: "Política de privacidad" }),
+    createEl("li", { text: "Términos y condiciones" }),
+    createEl("li", { text: "Política de devoluciones" })
   );
+  sec4.append(legalTitle, legalList);
 
   footerContent.append(sec1, sec2, sec3, sec4);
 
   const footerBottom = createEl("div", { className: "footer-bottom" });
   footerBottom.append(
     createEl("p", {
-      text: "© 2024 iPhone Store Valencia. Todos los derechos reservados. Apple y iPhone son marcas registradas de Apple Inc. Esta web es un proyecto de bootcamp.",
+      text: "© 2024 iPhone Store Valencia. Todos los derechos reservados. Apple y iPhone son marcas registradas de Apple Inc. Proyecto académico de bootcamp.",
     }),
     createEl("p", { text: "Web creada por Guillem Paniagua" })
   );
 
   container.append(footerContent, footerBottom);
-  footer.appendChild(container);
-
-  clearNode(footerRoot);
-  footerRoot.appendChild(footer);
+  footerRoot.appendChild(container);
 }
 
-//MODAL
+/* MODAL */
 function buildModal() {
-  // Overlay modal
   filterModal = createEl("div", {
     className: "modal",
     id: "filterModal",
@@ -285,10 +267,8 @@ function buildModal() {
     },
   });
 
-  // Caja contenido
   const modalContent = createEl("div", { className: "modal-content" });
 
-  // Header modal
   const modalHeader = createEl("div", { className: "modal-header" });
   const title = createEl("h2", { text: "Filtrar iPhones" });
 
@@ -300,13 +280,9 @@ function buildModal() {
 
   modalHeader.append(title, closeModalBtn);
 
-  // Body modal (scroll interno)
   const modalBody = createEl("div", { className: "modal-body" });
-
-  // Form
   filterForm = createEl("form", { attrs: { id: "filterForm" } });
 
-  // Filtro por modelo
   const modelGroup = createFormGroupSelect({
     labelText: "Modelo:",
     selectId: "model",
@@ -314,7 +290,6 @@ function buildModal() {
     options: uniqueValues(products, "model").sort(sortModelsSmart),
   });
 
-  //  Filtro por color
   const colorGroup = createFormGroupSelect({
     labelText: "Color:",
     selectId: "color",
@@ -322,7 +297,6 @@ function buildModal() {
     options: uniqueValues(products, "color"),
   });
 
-  //  Filtro por almacenamiento
   const storageGroup = createFormGroupSelect({
     labelText: "Almacenamiento:",
     selectId: "storage",
@@ -333,12 +307,9 @@ function buildModal() {
     formatOptionText: (v) => `${v}GB`,
   });
 
-  //  Filtro por precio (range)
   const priceGroup = createEl("div", { className: "form-group" });
-
   const priceLabel = createEl("label", { attrs: { for: "priceRange" } });
   priceLabel.appendChild(document.createTextNode("Precio máximo: "));
-
   priceValueSpan = createEl("span", { id: "priceValue", text: "€2000" });
   priceLabel.appendChild(priceValueSpan);
 
@@ -356,12 +327,9 @@ function buildModal() {
 
   priceGroup.append(priceLabel, priceRangeInput);
 
-  // Montar el form
   filterForm.append(modelGroup, colorGroup, storageGroup, priceGroup);
-
   modalBody.appendChild(filterForm);
 
-  // Footer modal
   const modalFooter = createEl("div", { className: "modal-footer" });
 
   const applyBtn = createEl("button", {
@@ -377,13 +345,10 @@ function buildModal() {
   });
 
   applyBtn.setAttribute("form", "filterForm");
-
   modalFooter.append(applyBtn, clearFiltersBtn);
 
   modalContent.append(modalHeader, modalBody, modalFooter);
   filterModal.appendChild(modalContent);
-
-  // Insertar modal al final del body
   document.body.appendChild(filterModal);
 }
 
@@ -405,14 +370,12 @@ function createFormGroupSelect({
     attrs: { id: selectId, name: selectId },
   });
 
-  // Opción "Todos"
   const optDefault = createEl("option", {
     text: defaultText,
     attrs: { value: "" },
   });
   select.appendChild(optDefault);
 
-  // Opciones dinámicas
   options.forEach((val) => {
     const option = createEl("option", {
       text: formatOptionText ? formatOptionText(val) : String(val),
@@ -441,50 +404,39 @@ function sortModelsSmart(a, b) {
   return a.localeCompare(b, "es");
 }
 
-// EVENT LISTENERS (abrir/cerrar modal, filtros, etc.)
+/* EVENT LISTENERS */
 function setupEventListeners() {
-  // Abrir modal
   filterToggleBtn.addEventListener("click", openModal);
 
-  // Cerrar modal (X)
   closeModalBtn.addEventListener("click", closeModal);
   closeModalBtn.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") closeModal();
   });
 
-  // Cerrar modal click fuera (overlay)
   filterModal.addEventListener("click", (e) => {
     if (e.target === filterModal) closeModal();
   });
 
-  // Cerrar con ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && filterModal.style.display === "block")
       closeModal();
   });
 
-  // Submit filtros
   filterForm.addEventListener("submit", (e) => {
     e.preventDefault();
     applyFilters();
     closeModal();
   });
 
-  // Limpiar filtros
   clearFiltersBtn.addEventListener("click", clearFilters);
-
-  // Range precio (actualiza el texto)
   priceRangeInput.addEventListener("input", updatePriceValue);
 }
 
 function openModal() {
   lastFocusedElement = document.activeElement;
   filterModal.style.display = "block";
-
-  // Bloquear scroll del body (opcional pro)
   document.body.style.overflow = "hidden";
 
-  // Llevar foco al primer select
   const firstSelect = filterForm.querySelector("select");
   if (firstSelect) firstSelect.focus();
 }
@@ -498,14 +450,13 @@ function closeModal() {
   }
 }
 
-// FILTRADO + RENDER
+/* FILTRADO */
 function updatePriceValue() {
   priceValueSpan.textContent = `€${priceRangeInput.value}`;
   currentFilters.priceRange = parseInt(priceRangeInput.value, 10);
 }
 
 function applyFilters() {
-  // Leer valores del form
   const model = document.getElementById("model").value;
   const color = document.getElementById("color").value;
   const storage = document.getElementById("storage").value;
@@ -516,7 +467,6 @@ function applyFilters() {
   currentFilters.storage = storage;
   currentFilters.priceRange = maxPrice;
 
-  // Filtrado conjunto
   const filteredProducts = products.filter((product) => {
     const modelMatch = !model || product.model === model;
     const colorMatch = !color || product.color === color;
@@ -534,10 +484,8 @@ function applyFilters() {
 }
 
 function clearFilters() {
-  // Reset del formulario
   filterForm.reset();
 
-  // Reset estado
   currentFilters = {
     model: "",
     color: "",
@@ -545,11 +493,8 @@ function clearFilters() {
     priceRange: 2000,
   };
 
-  // Reset range
   priceRangeInput.value = "2000";
   updatePriceValue();
-
-  // Mostrar todo
   renderProducts(products);
 }
 
@@ -562,23 +507,23 @@ function renderProducts(productsArray) {
   });
 }
 
-// SUGERIDOS
+/* SUGERIDOS */
 function showSuggestedProducts() {
   const suggestedProducts = getRandomProducts(3);
 
   clearNode(productsContainer);
 
-  // Mensaje sugerencias
-  const messageDiv = createEl("div", { className: "suggested-message" });
+  const messageSection = createEl("section", {
+    className: "suggested-message",
+  });
   const h3 = createEl("h3", {
     text: "No se encontraron iPhones con los filtros aplicados",
   });
   const p = createEl("p", { text: "Te sugerimos estos modelos:" });
-  messageDiv.append(h3, p);
+  messageSection.append(h3, p);
 
-  productsContainer.appendChild(messageDiv);
+  productsContainer.appendChild(messageSection);
 
-  // Pintar 3 sugeridos
   suggestedProducts.forEach((product) => {
     productsContainer.appendChild(createProductElement(product));
   });
@@ -589,11 +534,12 @@ function getRandomProducts(count) {
   return shuffled.slice(0, count);
 }
 
-// PRODUCT CARD
+/* PRODUCT CARD */
 function createProductElement(product) {
-  const productDiv = createEl("div", { className: "product-card" });
+  const productArticle = createEl("article", {
+    className: "product-card",
+  });
 
-  // Imagen
   const imageWrap = createEl("div", { className: "product-image" });
 
   const img = createEl("img", {
@@ -603,16 +549,13 @@ function createProductElement(product) {
     },
   });
 
-  // Si la imagen falla, la oculto
   img.addEventListener("error", () => {
     img.style.display = "none";
-    // Texto fallback
     imageWrap.textContent = "Imagen no disponible";
   });
 
   imageWrap.appendChild(img);
 
-  // Info
   const info = createEl("div", { className: "product-info" });
 
   const title = createEl("h3", {
@@ -637,8 +580,7 @@ function createProductElement(product) {
   });
 
   info.append(title, details, price);
+  productArticle.append(imageWrap, info);
 
-  productDiv.append(imageWrap, info);
-
-  return productDiv;
+  return productArticle;
 }

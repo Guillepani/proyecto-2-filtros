@@ -17,15 +17,16 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--background-color);
   -webkit-font-smoothing: antialiased;
 }
 
-/* UTILIDADES REUSABLES  */
+/* UTILIDADES REUSABLES */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -68,7 +69,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* HEADER (inyectado por JS)*/
+/* HEADER */
 .header {
   background-color: var(--background-color);
   border-bottom: 1px solid var(--border-color);
@@ -221,7 +222,7 @@ body {
   color: var(--text-secondary);
 }
 
-/* MODAL CORREGIDO: RESPONSIVE EN ALTURA */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
@@ -233,7 +234,6 @@ body {
   overflow: auto;
 }
 
-/* Caja del modal */
 .modal-content {
   background-color: var(--background-color);
   width: 100%;
@@ -243,13 +243,10 @@ body {
   box-shadow: var(--shadow);
   position: relative;
   animation: modalOpen 0.3s ease;
-
   max-height: 85vh;
-
-  /* Layout interno para permitir scroll en el cuerpo */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* el scroll lo hará el body interno */
+  overflow: hidden;
 }
 
 @keyframes modalOpen {
@@ -263,7 +260,6 @@ body {
   }
 }
 
-/* Header modal */
 .modal-header {
   padding: 1.6rem 2rem 1rem;
   border-bottom: 1px solid var(--border-color);
@@ -273,13 +269,11 @@ body {
   gap: 12px;
 }
 
-/*Scroll interno */
 .modal-body {
   padding: 1.2rem 2rem 1.2rem;
   overflow: auto;
 }
 
-/* Footer fijo abajo  */
 .modal-footer {
   padding: 1rem 2rem 1.6rem;
   border-top: 1px solid var(--border-color);
@@ -337,7 +331,7 @@ body {
   border-color: var(--primary-color);
 }
 
-/* FOOTER  */
+/* FOOTER */
 .footer {
   background-color: var(--surface-color);
   color: var(--text-primary);
@@ -362,6 +356,19 @@ body {
   margin-bottom: 0.5rem;
   color: var(--text-secondary);
   font-size: 0.9rem;
+}
+
+/* soporte visual para listas semánticas */
+.footer-section ul {
+  padding-left: 0;
+  margin: 0;
+}
+
+.footer-section li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  list-style: none;
 }
 
 .footer-bottom {

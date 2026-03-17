@@ -3,6 +3,8 @@
 Aplicación web tipo tienda online (con estilo Apple Store) desarrollada como segundo proyecto del bootcamp Full Stack.  
 El objetivo principal del proyecto es trabajar la lógica en JavaScript, especialmente el manejo de arrays, objetos, filtros y renderizado dinámico del DOM.
 
+Puedes probar la demo en este enlace ---> https://iphonemodal.netlify.app/
+
 # Tecnologías utilizadas
 - HTML5
 - CSS3
